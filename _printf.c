@@ -6,7 +6,7 @@
  */
 int _printf(const char *format, ...)
 {
-	int count, i;
+	int count, i, len;
 	va_list vars;
 
 	va_start(vars, format);
@@ -31,7 +31,8 @@ int _printf(const char *format, ...)
 				{
 					const char *str = va_arg(vars, const char *);
 
-					for(i = 0; i < strlen(str); i++)
+					len = strlen(str);
+					for(i = 0; i < len; i++)
 					{
 						_putchar(str[i]);
 						count++;
