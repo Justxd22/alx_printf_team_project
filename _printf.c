@@ -28,6 +28,17 @@ int _printf_string(const char *str)
 	return (len);
 }
 
+/**
+ * _printf_ukn - print unknown characters
+ * @c: character to print
+ * Return: Number of characters
+ */
+int _printf_ukn(char c)
+{
+	_putchar(c);
+	return (2);
+}
+
 
 /**
  * _printf - Custom printf function implementation.
@@ -57,6 +68,7 @@ int _printf(const char *format, ...)
 					count += _printf_char('%');
 					break;
 				default:
+					count += _printf_ukn(*format);
 					break;
 			}
 		}
