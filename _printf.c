@@ -35,10 +35,47 @@ int _printf_string(const char *str)
  */
 int _printf_ukn(char c)
 {
+	_putchar('%');
 	_putchar(c);
 	return (2);
 }
 
+/**
+ * _printf_int - integars
+ * @d: int to print
+ * Return: Number of characters
+ */
+int _printf_int(int d)
+{
+        int len = 0, i;
+        char str[11];
+
+	if (d == 0)
+	{
+		putchar('0');
+		return (1);
+	}
+
+	if (d < 0)
+	{
+		putchar('-');
+		len++;
+		d = -d;
+	}
+
+        while (d)
+        {
+                str[len++] = d % 10 + '0';
+                d /= 10;
+        }
+
+        for (i = len - 1; i >= 0; i--)
+        {
+                _putchar(str[i]);
+        }
+
+        return (len);
+}
 
 /**
  * _printf - Custom printf function implementation.
@@ -63,6 +100,12 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					count += _printf_string(va_arg(vars, const char *));
+					break;
+				case 'i':
+					count += _printf_int(va_arg(vars, int));
+					break;
+				case 'd':
+					count += _printf_int(va_arg(vars, int));
 					break;
 				case '%':
 					count += _printf_char('%');
