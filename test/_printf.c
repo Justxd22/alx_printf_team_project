@@ -63,11 +63,7 @@ int _printf_int(int d)
 		_putchar('-');
 		len++;
 		d = -d;
-<<<<<<< HEAD
-		
-=======
 		negat = 0;
->>>>>>> e3a2a73f68a047649b8ffe22c4e94d3bcbda2674
 	}
 
 	while (d)
@@ -77,26 +73,10 @@ int _printf_int(int d)
 		d /= 10;
 	}
 
-<<<<<<< HEAD
-	
-		for (i = len - 1; i >= 0; i--)
-                {
-                        _putchar(str[i]);
-                }
-	
-=======
-	if (negat)
+	for (i = len - 1; i >= 0; i--)
 	{
-		for (i = len - 1; i > 0; i--)
-			_putchar(str[i]);
+		_putchar(str[i]);
 	}
-	else
-	{
-		for (i = len - 1; i >= 0; i--)
-			_putchar(str[i]);
-	}
-
->>>>>>> e3a2a73f68a047649b8ffe22c4e94d3bcbda2674
 	return (len);
 }
 
