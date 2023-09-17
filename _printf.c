@@ -49,8 +49,8 @@ int _printf_ukn(char c)
  */
 int _printf_int(int d)
 {
-        int len = 0, i;
-        char str[11];
+	int len = 0, i;
+	char str[11];
 
 	if (d == 0)
 	{
@@ -65,18 +65,18 @@ int _printf_int(int d)
 		d = -d;
 	}
 
-        while (d)
-        {
-                str[len++] = d % 10 + '0';
-                d /= 10;
-        }
+	while (d)
+	{
+		str[len++] = d % 10 + '0';
+		d /= 10;
+	}
 
-        for (i = len - 1; i >= 0; i--)
-        {
-                _putchar(str[i]);
-        }
+	for (i = len - 1; i >= 0; i--)
+	{
+		_putchar(str[i]);
+	}
 
-        return (len);
+	return (len);
 }
 
 /**
