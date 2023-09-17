@@ -50,8 +50,7 @@ int _printf_ukn(char c)
 int _printf_int(int d)
 {
 	int len = 0, i;
-	int negat = 0;
-	char str[11];
+	char str[10];
 
 	if (d == 0)
 	{
@@ -74,20 +73,10 @@ int _printf_int(int d)
 		d /= 10;
 	}
 
-	if (negat)
-        {
-                for (i = len - 1; i > 0; i--)
-                {
-                        _putchar(str[i]);
-                }
-        }
-        else
-        {
-                for (i = len - 1; i >= 0; i--)
-                {
-                        _putchar(str[i]);
-                }
-        }
+	for (i = len - 1; i >= 0; i--)
+	{
+		_putchar(str[i]);
+	}
 
 	return (len);
 }
