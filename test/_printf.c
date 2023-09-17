@@ -64,7 +64,7 @@ int _printf_int(int d)
 		_putchar('-');
 		len++;
 		d = -d;
-		negat = 1;
+		negat = 0;
 	}
 
 	while (d)
@@ -77,17 +77,14 @@ int _printf_int(int d)
 	if (negat)
 	{
 		for (i = len - 1; i > 0; i--)
-		{
 			_putchar(str[i]);
-		}
 	}
 	else
 	{
 		for (i = len - 1; i >= 0; i--)
-                {
-                        _putchar(str[i]);
-                }
+			_putchar(str[i]);
 	}
+
 	return (len);
 }
 
