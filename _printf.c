@@ -43,14 +43,14 @@ int _printf_ukn(char c)
 }
 
 /**
- * _printf_int - integars
+ * _printf_int - integers
  * @d: int to print
  * Return: Number of characters
  */
 int _printf_int(int d)
 {
-	int len = 0, i;
-	char str[10];
+	int len = 0, i, temp = d;
+	char *str;
 
 	if (d == 0)
 	{
@@ -65,17 +65,27 @@ int _printf_int(int d)
 		d = -d;
 	}
 
-	while (d)
+	while (temp)
 	{
-		str[len] = d % 10 + '0';
+		temp /= 10;
 		len++;
-		d /= 10;
 	}
+
+	str = (char *)malloc((len + 1) * sizeof(char));
+	if (str == NULL)
+		return (0);
 
 	for (i = len - 1; i >= 0; i--)
 	{
-		_putchar(str[i]);
+		str[i] = d % 10 + '0';
+		d /= 10;
 	}
+	str[len] = '\0';
+
+	for (i = 0; i < len; i++)
+		_putchar(str[i]);
+
+	free(str);
 	return (len);
 }
 
