@@ -54,13 +54,13 @@ int _printf_int(int d)
 
 	if (d == 0)
 	{
-		putchar('0');
+		_putchar('0');
 		return (1);
 	}
 
 	if (d < 0)
 	{
-		putchar('-');
+		_putchar('-');
 		len++;
 		d = -d;
 	}
