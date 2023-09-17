@@ -118,6 +118,9 @@ int _printf(const char *format, ...)
 				case 'd':
 					count += _printf_int(va_arg(vars, int));
 					break;
+				case 'b':
+					count += _printf_unsigned(va_arg(vars, unsigned int));
+					break;
 				case '%':
 					count += _printf_char('%');
 					break;
