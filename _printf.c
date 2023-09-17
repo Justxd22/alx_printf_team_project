@@ -21,7 +21,7 @@ int _printf_string(const char *str)
 	int i, len;
 
 	if (str == NULL)
-		return;
+		return (0);
 	len = strlen(str);
 	for (i = 0; i < len; i++)
 	{
