@@ -1,12 +1,12 @@
 #include "main.h"
 
 /**
- * _printf_unsigned_int - handles %u specifier
- * @u: unsigned int to print 
+ * _print_unsigned_int - handles %u specifier
+ * @u: unsigned int to print
  * Return: length of int
  */
 
-int _printf_unsigned_int(unsigned int u)
+int _print_unsigned_int(unsigned int u)
 {
 	unsigned int buffer = u;
 	int len = 0, i;
@@ -37,12 +37,12 @@ int _printf_unsigned_int(unsigned int u)
 }
 
 /**
- * _printf_octal - handles %o specifier
+ * _print_octal - handles %o specifier
  * @o: unsigned to octal then print
  * Return: size of octal
  */
 
-int _printf_octal(unsigned int o)
+int _print_octal(unsigned int o)
 {
 	unsigned int octal = 0;
 	unsigned long int i = 1;
@@ -55,10 +55,17 @@ int _printf_octal(unsigned int o)
 		printf("%u / %u / %u\n", octal, o, i);
 	}
 
-	return (_printf_unsigned_int(octal));
+	return (_print_unsigned_int(octal));
 }
 
 /**
- * _printf_hexa_small - handles %x specifier
- * @x: 
+ * _print_hexa_small - handles %x specifier
+ * @x: unsigned to hexa small
+ * Return: size of hexa
+ */
+
+/**
+ * _print_hexa_cap - handles %X specifier
+ * @X: unsigned to hexa cap
+ * Return: size of hexa
  */
