@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
  * _printf_char - helper func to print char
@@ -49,7 +50,7 @@ int _printf_ukn(char c)
  */
 int _printf_int(int d)
 {
-	int len = 0, i, temp = d;
+	int len = 0, i, temp = d, sign = 0;
 	char *str;
 
 	if (d == 0)
@@ -61,7 +62,7 @@ int _printf_int(int d)
 	if (d < 0)
 	{
 		_putchar('-');
-		len++;
+		sign++;
 		d = -d;
 	}
 
@@ -71,22 +72,21 @@ int _printf_int(int d)
 		len++;
 	}
 
-	str = (char *)malloc((len + 1) * sizeof(char));
+	str = (char *)malloc((len) * sizeof(char));
 	if (str == NULL)
 		return (0);
 
-	for (i = len - 1; i >= 0; i--)
+	for (i = 0; i < len; i++)
 	{
 		str[i] = d % 10 + '0';
 		d /= 10;
 	}
-	str[len] = '\0';
 
-	for (i = 0; i < len; i++)
+	for (i = len - 1; i >= 0; i--)
 		_putchar(str[i]);
 
 	free(str);
-	return (len);
+	return (len + sign);
 }
 
 /**
