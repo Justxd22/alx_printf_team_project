@@ -63,7 +63,6 @@ int _printf_int(int d)
 		_putchar('-');
 		len++;
 		d = -d;
-		
 	}
 
 	while (d)
