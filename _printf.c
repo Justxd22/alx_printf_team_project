@@ -50,6 +50,7 @@ int _printf_ukn(char c)
 int _printf_int(int d)
 {
 	int len = 0, i;
+	int negat = 0;
 	char str[11];
 
 	if (d == 0)
@@ -63,6 +64,7 @@ int _printf_int(int d)
 		_putchar('-');
 		len++;
 		d = -d;
+		negat = 0;
 	}
 
 	while (d)
@@ -72,10 +74,20 @@ int _printf_int(int d)
 		d /= 10;
 	}
 
-	for (i = len - 1; i >= 0; i--)
-	{
-		_putchar(str[i]);
-	}
+	if (negat)
+        {
+                for (i = len - 1; i > 0; i--)
+                {
+                        _putchar(str[i]);
+                }
+        }
+        else
+        {
+                for (i = len - 1; i >= 0; i--)
+                {
+                        _putchar(str[i]);
+                }
+        }
 
 	return (len);
 }
