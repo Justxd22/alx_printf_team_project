@@ -83,6 +83,14 @@ const char *format, va_list vars)
 			return (_printf_unsigned_bin(buffer, buf_ptr, va_arg(vars, unsigned int)));
 		case '%':
 			return (_printf_char(buffer, buf_ptr, '%'));
+		case 'u':
+			return (_printf_unsigned_int(buffer, buf_ptr, va_arg(vars, unsigned int)));
+		case 'o':
+			return (_printf_octal(buffer, buf_ptr, va_arg(vars, unsigned int)));
+		case 'x':
+			return (_printf_hexa_small(buffer, buf_ptr, va_arg(vars, unsigned int)));
+		case 'X':
+			return (_printf_hexa_cap(buffer, buf_ptr, va_arg(vars, unsigned int)));
 		default:
 			return (_printf_ukn(buffer, buf_ptr, *format));
 	}
