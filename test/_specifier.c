@@ -44,18 +44,36 @@ int _printf_unsigned_int(unsigned int u)
 
 int _printf_octal(unsigned int o)
 {
-	unsigned int octal = 0;
-	unsigned long int i = 1;
+	unsigned int octal[15];
+	int i = 0, j, len;
+	char *str;
 
 	while (o != 0)
 	{
-		octal = octal + ((o % 8) * i);
+		octal[i] = (o % 8);
 		o = o / 8;
-		i *= 10;
-		printf("%u / %u / %u\n", octal, o, i);
+		i++;
 	}
 
-	return (_printf_unsigned_int(octal));
+	len = i;
+
+	str = (char *)malloc((len + 1) * sizeof(char));
+
+        if (str == NULL)
+                return (0);
+
+        for (j = i; j >= 0; j--)
+        {
+                str[j] = octal[j] + '0';
+        }
+        str[len] = '\0';
+
+        for (i = len; i >= 0 ; i--)
+                _putchar(str[i]);
+
+        free(str);
+        return (len);
+
 }
 
 /**
