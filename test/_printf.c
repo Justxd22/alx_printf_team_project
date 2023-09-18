@@ -133,6 +133,9 @@ int _printf(const char *format, ...)
 				case 'X':
 					count += _printf_hexa_cap(va_arg(vars, unsigned int));
 					break;
+				case 'S':
+					count += _printf_string_special(va_arg(vars, const char *));
+					break;
 				case '%':
 					count += _printf_char('%');
 					break;
