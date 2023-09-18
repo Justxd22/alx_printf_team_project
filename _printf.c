@@ -107,7 +107,7 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-					count += _printf_char(va_arg(vars, int));
+q					count += _printf_char(va_arg(vars, int));
 					break;
 				case 's':
 					count += _printf_string(va_arg(vars, const char *));

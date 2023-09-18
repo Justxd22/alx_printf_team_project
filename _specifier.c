@@ -59,20 +59,20 @@ int _printf_octal(unsigned int o)
 
 	str = (char *)malloc((len + 1) * sizeof(char));
 
-        if (str == NULL)
-                return (0);
+	if (str == NULL)
+		return (0);
 
-        for (j = i; j >= 0; j--)
-        {
-                str[j] = octal[j] + '0';
-        }
-        str[len] = '\0';
+	for (j = i; j >= 0; j--)
+	{
+		str[j] = octal[j] + '0';
+	}
+	str[len] = '\0';
 
-        for (i = len; i >= 0 ; i--)
-                _putchar(str[i]);
+	for (i = len; i >= 0 ; i--)
+		_putchar(str[i]);
 
-        free(str);
-        return (len);
+	free(str);
+	return (len);
 
 }
 

@@ -11,7 +11,7 @@ int _printf_unsigned(unsigned int b)
 	int i = 32, j, len = 0;
 	char *bin_string = malloc(33 * sizeof(char));
 
-  	if (bin_string == NULL)
+	if (bin_string == NULL)
 		return (0);
 
 	if (b == 0)
