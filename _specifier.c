@@ -127,7 +127,7 @@ int _printf_hexa_cap(char *buffer, char *buffer_ptr, unsigned int X)
 		*buffer_ptr = str[j];
 		buffer_ptr++;
 	}
-
+	free(str);
 	return (len);
 }
 
@@ -173,6 +173,6 @@ int _printf_hexa_small(char *buffer, char *buffer_ptr, unsigned int x)
 		*buffer_ptr = str[j];
 		buffer_ptr++;
 	}
-
+	free(str);
 	return (len);
 }
