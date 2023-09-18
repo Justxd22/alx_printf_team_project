@@ -59,31 +59,99 @@ int _printf_octal(unsigned int o)
 
 	str = (char *)malloc((len + 1) * sizeof(char));
 
-        if (str == NULL)
-                return (0);
+	if (str == NULL)
+		return (0);
 
-        for (j = i; j >= 0; j--)
-        {
-                str[j] = octal[j] + '0';
-        }
-        str[len] = '\0';
+	for (j = i; j >= 0; j--)
+	{
+		str[j] = octal[j] + '0';
+	}
+	str[len] = '\0';
 
-        for (i = len; i >= 0 ; i--)
-                _putchar(str[i]);
+	for (i = len; i >= 0; i--)
+		_putchar(str[i]);
 
-        free(str);
-        return (len);
+	free(str);
+	return (len);
 
 }
-
-/**
- * _printf_hexa_small - handles %x specifier
- * @x: unsigned to hexa small
- * Return: size of hexa
- */
 
 /**
  * _printf_hexa_cap - handles %X specifier
  * @X: unsigned to hexa cap
  * Return: size of hexa
  */
+
+int _printf_hexa_cap(unsigned int X)
+{
+	int i = 0, j, len = 0;
+	unsigned int buffer, count = X;
+	char *str;
+
+	while (count != 0)
+	{
+		count /= 16;
+		len++;
+	}
+
+	str = (char *)malloc((len + 1) * sizeof(char));
+	while (X != 0)
+	{
+		buffer = X % 16;
+
+		if (buffer < 10)
+			buffer += '0';
+		else
+			buffer += ('0' + 7);
+
+		str[i] = buffer;
+		i++;
+		X /= 16;
+	}
+	for (j = i - 1; j >= 0; j--)
+	{
+		_putchar(str[j]);
+	}
+	return (len);
+}
+
+/**
+ * _printf_hexa_small  - handles %x specifier
+ * @x: unsigned to hexa small
+ * Return: size of hexa
+ *
+ * Description: we added 32 to the previous code to
+ * print small letters instead
+ */
+
+int _printf_hexa_small(unsigned int x)
+{
+	int i = 0, j, len = 0;
+	unsigned int buffer, count = x;
+	char *str;
+
+	while (count != 0)
+	{
+		count /= 16;
+		len++;
+	}
+
+	str = (char *)malloc((len + 1) * sizeof(char));
+	while (x != 0)
+	{
+		buffer = x % 16;
+
+		if (buffer < 10)
+			buffer += '0';
+		else
+			buffer += ('0' + 7 + 32);
+		str[i] = buffer;
+		i++;
+		x /= 16;
+	}
+	for (j = i - 1; j >= 0; j--)
+	{
+		_putchar(str[j]);
+	}
+	return (len);
+}

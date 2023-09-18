@@ -127,6 +127,12 @@ int _printf(const char *format, ...)
 				case 'o':
 					count += _printf_octal(va_arg(vars, unsigned int));
 					break;
+				case 'x':
+					count += _printf_hexa_small(va_arg(vars, unsigned int));
+					break;
+				case 'X':
+					count += _printf_hexa_cap(va_arg(vars, unsigned int));
+					break;
 				case '%':
 					count += _printf_char('%');
 					break;

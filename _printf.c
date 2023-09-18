@@ -107,7 +107,7 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-q					count += _printf_char(va_arg(vars, int));
+					count += _printf_char(va_arg(vars, int));
 					break;
 				case 's':
 					count += _printf_string(va_arg(vars, const char *));
@@ -126,6 +126,12 @@ q					count += _printf_char(va_arg(vars, int));
 					break;
 				case 'o':
 					count += _printf_octal(va_arg(vars, unsigned int));
+					break;
+				case 'x':
+					count += _printf_hexa_small(va_arg(vars, unsigned int));
+					break;
+				case 'X':
+					count += _printf_hexa_cap(va_arg(vars, unsigned int));
 					break;
 				case '%':
 					count += _printf_char('%');
