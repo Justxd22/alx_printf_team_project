@@ -91,6 +91,9 @@ const char *format, va_list vars)
 			return (_printf_hexa_small(buffer, buf_ptr, va_arg(vars, unsigned int)));
 		case 'X':
 			return (_printf_hexa_cap(buffer, buf_ptr, va_arg(vars, unsigned int)));
+		case 'S':
+			return (_printf_string_special(buffer, buf_ptr,
+va_arg(vars, const char *)));
 		default:
 			return (_printf_ukn(buffer, buf_ptr, *format));
 	}
