@@ -2,19 +2,21 @@
 
 /**
  * _printf_unsigned_int - handles %u specifier
+ * @buffer: buffer to check
+ * @buffer_ptr: pointer to keep track of buffer position
  * @u: unsigned int to print
  * Return: length of int
  */
-
-int _printf_unsigned_int(unsigned int u)
+int _printf_unsigned_int(char *buffer, char *buffer_ptr, unsigned int u)
 {
-	unsigned int buffer = u;
+	unsigned int buf = u;
 	int len = 0, i;
 	char *str;
 
-	while (buffer)
+	flush_buffer(buffer, buffer_ptr);
+	while (buf)
 	{
-		buffer /= 10;
+		buf /= 10;
 		len++;
 	}
 
@@ -30,24 +32,29 @@ int _printf_unsigned_int(unsigned int u)
 	str[len] = '\0';
 
 	for (i = 0; i < len; i++)
-		_putchar(str[i]);
-
+	{
+		flush_buffer(buffer, buffer_ptr);
+		*buffer_ptr = str[i];
+		buffer_ptr++;
+	}
 	free(str);
 	return (len);
 }
 
 /**
  * _printf_octal - handles %o specifier
+ * @buffer: buffer to check
+ * @buffer_ptr: pointer to keep track of buffer position
  * @o: unsigned to octal then print
  * Return: size of octal
  */
-
-int _printf_octal(unsigned int o)
+int _printf_octal(char *buffer, char *buffer_ptr, unsigned int o)
 {
 	unsigned int octal[15];
 	int i = 0, j, len;
 	char *str;
 
+	flush_buffer(buffer, buffer_ptr);
 	while (o != 0)
 	{
 		octal[i] = (o % 8);
@@ -69,7 +76,11 @@ int _printf_octal(unsigned int o)
 	str[len] = '\0';
 
 	for (i = len; i >= 0; i--)
-		_putchar(str[i]);
+	{
+		flush_buffer(buffer, buffer_ptr);
+		*buffer_ptr = str[i];
+		buffer_ptr++;
+	}
 
 	free(str);
 	return (len);
@@ -78,16 +89,18 @@ int _printf_octal(unsigned int o)
 
 /**
  * _printf_hexa_cap - handles %X specifier
+ * @buffer: buffer to check
+ * @buffer_ptr: pointer to keep track of buffer position
  * @X: unsigned to hexa cap
  * Return: size of hexa
  */
-
-int _printf_hexa_cap(unsigned int X)
+int _printf_hexa_cap(char *buffer, char *buffer_ptr, unsigned int X)
 {
 	int i = 0, j, len = 0;
-	unsigned int buffer, count = X;
+	unsigned int buf, count = X;
 	char *str;
 
+	flush_buffer(buffer, buffer_ptr);
 	while (count != 0)
 	{
 		count /= 16;
@@ -97,39 +110,44 @@ int _printf_hexa_cap(unsigned int X)
 	str = (char *)malloc((len + 1) * sizeof(char));
 	while (X != 0)
 	{
-		buffer = X % 16;
+		buf = X % 16;
 
-		if (buffer < 10)
-			buffer += '0';
+		if (buf < 10)
+			buf += '0';
 		else
-			buffer += ('0' + 7);
+			buf += ('0' + 7);
 
-		str[i] = buffer;
+		str[i] = buf;
 		i++;
 		X /= 16;
 	}
 	for (j = i - 1; j >= 0; j--)
 	{
-		_putchar(str[j]);
+		flush_buffer(buffer, buffer_ptr);
+		*buffer_ptr = str[j];
+		buffer_ptr++;
 	}
+	free(str);
 	return (len);
 }
 
 /**
  * _printf_hexa_small  - handles %x specifier
+ * @buffer: buffer to check
+ * @buffer_ptr: pointer to keep track of buffer position
  * @x: unsigned to hexa small
  * Return: size of hexa
  *
  * Description: we added 32 to the previous code to
  * print small letters instead
  */
-
-int _printf_hexa_small(unsigned int x)
+int _printf_hexa_small(char *buffer, char *buffer_ptr, unsigned int x)
 {
 	int i = 0, j, len = 0;
-	unsigned int buffer, count = x;
+	unsigned int buf, count = x;
 	char *str;
 
+	flush_buffer(buffer, buffer_ptr);
 	while (count != 0)
 	{
 		count /= 16;
@@ -139,19 +157,22 @@ int _printf_hexa_small(unsigned int x)
 	str = (char *)malloc((len + 1) * sizeof(char));
 	while (x != 0)
 	{
-		buffer = x % 16;
+		buf = x % 16;
 
-		if (buffer < 10)
-			buffer += '0';
+		if (buf < 10)
+			buf += '0';
 		else
-			buffer += ('0' + 7 + 32);
-		str[i] = buffer;
+			buf += ('0' + 7 + 32);
+		str[i] = buf;
 		i++;
 		x /= 16;
 	}
 	for (j = i - 1; j >= 0; j--)
 	{
-		_putchar(str[j]);
+		flush_buffer(buffer, buffer_ptr);
+		*buffer_ptr = str[j];
+		buffer_ptr++;
 	}
+	free(str);
 	return (len);
 }

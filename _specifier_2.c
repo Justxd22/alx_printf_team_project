@@ -37,10 +37,10 @@ int _printf_string_special(char *buffer, char *buffer_ptr, const char *S)
 			}
 			while (j >= 0)
 			{
-				flush_buffer(buffer, buffer_ptr);
-				*buffer_ptr = str[j], buffer_ptr++, j--;
+				--j, flush_buffer(buffer, buffer_ptr);
+				*buffer_ptr = str[j], buffer_ptr++;
 			}
-			len += 2, i++;
+			len += 3, i++;
 		}
 		else
 		{
