@@ -50,3 +50,51 @@ int _printf_string_special(char *buffer, char *buffer_ptr, const char *S)
 	}
 	return (len);
 }
+
+/**
+ * _printf_pointer - helper function turn pointer to hex string
+ * @buffer: buffer to check
+ * @buf_ptr: pointer to keep track of buffer position
+ * @ptr: pointer to print
+ * Return: Hexadecimal address
+ */
+int _printf_pointer(char *buffer, char *buf_ptr, void *ptr)
+{
+	const char hexDigits[] = "0123456789abcdef";
+	unsigned long int value = (unsigned long int)ptr, temp;
+	int i = 0, hex, len = 0, j;
+	char *str;
+
+	flush_buffer(buffer, buf_ptr);
+	temp = value;
+	if (ptr == NULL)
+		return (0);
+	while (temp != 0)
+	{
+		temp /= 16;
+		len++;
+	}
+
+	str = (char *)malloc((len + 3) * sizeof(char));
+	if (str == NULL)
+		return (0);
+	str[i++] = '0';
+	str[i++] = 'x';
+	while (value != 0)
+	{
+		hex = value % 16;
+		str[len + 3 - i] = hexDigits[hex];
+		i++;
+		value /= 16;
+	}
+	str[i] = '\0';
+
+	for (j = 0; j < len + 3; j++)
+	{
+		flush_buffer(buffer, buf_ptr);
+		*buf_ptr = str[j];
+		buf_ptr++;
+	}
+	free(str);
+	return (len + 3);
+}

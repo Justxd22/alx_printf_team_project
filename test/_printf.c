@@ -94,6 +94,8 @@ const char *format, va_list vars)
 		case 'S':
 			return (_printf_string_special(buffer, buf_ptr,
 va_arg(vars, const char *)));
+		case 'p':
+			return (_printf_pointer(buffer, buf_ptr, va_arg(vars, void *)));
 		default:
 			return (_printf_ukn(buffer, buf_ptr, *format));
 	}
