@@ -75,7 +75,7 @@ int _printf_octal(char *buffer, char *buffer_ptr, unsigned int o)
 	}
 	str[len] = '\0';
 
-	for (i = len; i >= 0; i--)
+	for (i = len - 1; i >= 0; i--)
 	{
 		flush_buffer(buffer, buffer_ptr);
 		*buffer_ptr = str[i];
