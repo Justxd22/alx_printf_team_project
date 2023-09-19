@@ -1,22 +1,25 @@
 #include "main.h"
-#include <stdio.h>
 
 /**
- * _printf_unsigned - print unsigned int argument as binary
+ * _printf_unsigned_bin - print unsigned int argument as binary
+ * @buffer: buffer to check
+ * @buffer_ptr: pointer to keep track of buffer position
  * @b: unsigned int to print
  * Return: Number of characters printed
  */
-int _printf_unsigned(unsigned int b)
+int _printf_unsigned_bin(char *buffer, char *buffer_ptr, unsigned int b)
 {
 	int i = 32, j, len = 0;
 	char *bin_string = malloc(33 * sizeof(char));
 
-  	if (bin_string == NULL)
+	flush_buffer(buffer, buffer_ptr);
+	if (bin_string == NULL)
 		return (0);
 
 	if (b == 0)
 	{
-		_putchar('0');
+		*buffer_ptr = '0';
+		buffer_ptr++;
 		free(bin_string);
 		return (1);
 	}
@@ -29,10 +32,10 @@ int _printf_unsigned(unsigned int b)
 
 	for (j = i + 1; j < 33; j++)
 	{
-		_putchar(bin_string[j]);
-		len++;
+		flush_buffer(buffer, buffer_ptr);
+		*buffer_ptr = bin_string[j];
+		buffer_ptr++, len++;
 	}
-
 	free(bin_string);
 	return (len);
 }

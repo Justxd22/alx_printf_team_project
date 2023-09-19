@@ -2,91 +2,105 @@
 
 /**
  * _printf_char - helper func to print char
+ * @buffer: buffer to check
+ * @buf_ptr: pointer to keep track of buffer position
  * @c: char to print
  * Return: Number of characters
  */
-int _printf_char(int c)
+int _printf_char(char *buffer, char *buf_ptr, int c)
 {
-	_putchar(c);
+	flush_buffer(buffer, buf_ptr);
+	*buf_ptr = c;
+	buf_ptr++;
 	return (1);
 }
 
 /**
  * _printf_string - helper func to print strings
+ * @buffer: buffer to check
+ * @buf_ptr: pointer to keep track of buffer position
  * @str: string to print
  * Return: Number of characters
  */
-int _printf_string(const char *str)
+int _printf_string(char *buffer, char *buf_ptr, const char *str)
 {
 	int i, len;
 
+	flush_buffer(buffer, buf_ptr);
 	if (str == NULL)
 		return (0);
+
 	len = strlen(str);
 	for (i = 0; i < len; i++)
 	{
-		_putchar(str[i]);
+		flush_buffer(buffer, buf_ptr);
+		*buf_ptr = str[i];
+		buf_ptr++;
 	}
 	return (len);
 }
 
 /**
  * _printf_ukn - print unknown characters
+ * @buffer: buffer to check
+ * @buf_ptr: pointer to keep track of buffer position
  * @c: character to print
  * Return: Number of characters
  */
-int _printf_ukn(char c)
+int _printf_ukn(char *buffer, char *buf_ptr, char c)
 {
-	_putchar('%');
-	_putchar(c);
+	flush_buffer(buffer, buf_ptr);
+	*buf_ptr = '%';
+	buf_ptr++;
+	*buf_ptr = c;
+	buf_ptr++;
 	return (2);
 }
 
 /**
- * _printf_int - integers
- * @d: int to print
+ * _printf_detect_format - helper
+ * @buffer: buffer to check
+ * @buf_ptr: pointer to keep track of buffer position
+ * @format: current char
+ * @vars: vars
  * Return: Number of characters
  */
-int _printf_int(int d)
+int _printf_detect_format(char *buffer, char *buf_ptr,
+const char *format, va_list vars)
 {
-	int len = 0, i, temp = d, sign = 0;
-	char *str;
 
-	if (d == 0)
+	switch (*format)
 	{
-		_putchar('0');
-		return (1);
+		case 'c':
+			return (_printf_char(buffer, buf_ptr, va_arg(vars, int)));
+		case 's':
+			return (_printf_string(buffer, buf_ptr, va_arg(vars, const char *)));
+		case 'i':
+			return (_printf_int(buffer, buf_ptr, va_arg(vars, int)));
+		case 'd':
+			return (_printf_int(buffer, buf_ptr, va_arg(vars, int)));
+		case 'b':
+			return (_printf_unsigned_bin(buffer, buf_ptr, va_arg(vars, unsigned int)));
+		case '%':
+			return (_printf_char(buffer, buf_ptr, '%'));
+		case 'u':
+			return (_printf_unsigned_int(buffer, buf_ptr, va_arg(vars, unsigned int)));
+		case 'o':
+			return (_printf_octal(buffer, buf_ptr, va_arg(vars, unsigned int)));
+		case 'x':
+			return (_printf_hexa_small(buffer, buf_ptr, va_arg(vars, unsigned int)));
+		case 'X':
+			return (_printf_hexa_cap(buffer, buf_ptr, va_arg(vars, unsigned int)));
+		case 'S':
+			return (_printf_string_special(buffer, buf_ptr,
+va_arg(vars, const char *)));
+		default:
+			return (_printf_ukn(buffer, buf_ptr, *format));
 	}
 
-	if (d < 0)
-	{
-		_putchar('-');
-		sign++;
-		d = -d;
-	}
-
-	while (temp)
-	{
-		temp /= 10;
-		len++;
-	}
-
-	str = (char *)malloc((len) * sizeof(char));
-	if (str == NULL)
-		return (0);
-
-	for (i = 0; i < len; i++)
-	{
-		str[i] = d % 10 + '0';
-		d /= 10;
-	}
-
-	for (i = len - 1; i >= 0; i--)
-		_putchar(str[i]);
-
-	free(str);
-	return (len + sign);
 }
+
+
 
 /**
  * _printf - Custom printf function implementation.
@@ -95,7 +109,8 @@ int _printf_int(int d)
  */
 int _printf(const char *format, ...)
 {
-	int count = 0;
+	int count = 0, temp = 0;
+	char buffer[1024], *buf_ptr = buffer;
 	va_list vars;
 
 	va_start(vars, format);
@@ -104,52 +119,15 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			switch (*format)
-			{
-				case 'c':
-					count += _printf_char(va_arg(vars, int));
-					break;
-				case 's':
-					count += _printf_string(va_arg(vars, const char *));
-					break;
-				case 'i':
-					count += _printf_int(va_arg(vars, int));
-					break;
-				case 'd':
-					count += _printf_int(va_arg(vars, int));
-					break;
-				case 'b':
-					count += _printf_unsigned(va_arg(vars, unsigned int));
-					break;
-				case 'u':
-					count += _printf_unsigned_int(va_arg(vars, unsigned int));
-					break;
-				case 'o':
-					count += _printf_octal(va_arg(vars, unsigned int));
-					break;
-				case 'x':
-					count += _printf_hexa_small(va_arg(vars, unsigned int));
-					break;
-				case 'X':
-					count += _printf_hexa_cap(va_arg(vars, unsigned int));
-					break;
-				case 'S':
-					count += _printf_string_special(va_arg(vars, const char *));
-					break;
-				case '%':
-					count += _printf_char('%');
-					break;
-				default:
-					count += _printf_ukn(*format);
-					break;
-			}
+			temp = _printf_detect_format(buffer, buf_ptr, format, vars);
+			count += temp, buf_ptr += temp;
 		}
 		else
-		{
-			count += _printf_char(*format);
-		}
+			count += _printf_char(buffer, buf_ptr, *format), buf_ptr++;
 		format++;
+		flush_buffer(buffer, buf_ptr);
 	}
 	va_end(vars);
+	(buf_ptr > buffer) ? write(1, buffer, buf_ptr - buffer) : 0;
 	return (count);
 }
