@@ -16,6 +16,8 @@ int _printf_octal(char *buffer, char *buffer_ptr, unsigned int o);
 int _printf_hexa_small(char *buffer, char *buffer_ptr, unsigned int x);
 int _printf_hexa_cap(char *buffer, char *buffer_ptr, unsigned int X);
 int _printf_string_special(char *buffer, char *buffer_ptr, const char *S);
+int _printf_reverse(char *buffer, char *buf_ptr, const char *c);
+int _printf_rot13(char *buffer, char *buf_ptr, const char *c);
 int _printf_pointer(char *buffer, char *buf_ptr, void *p);
 int _printf(const char *format, ...);
 
