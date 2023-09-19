@@ -120,7 +120,7 @@ ss[52]  = {'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
 int _printf_pointer(char *buffer, char *buf_ptr, void *ptr)
 {
 	const char hexDigits[] = "0123456789abcdef";
-	unsigned long int value = (uintptr_t)ptr, temp;
+	unsigned long int value = (unsigned long int)ptr, temp;
 	int i = 0, hex, len = 0, j;
 	char *str;
 
