@@ -75,6 +75,8 @@ const char *format, va_list vars)
 			return (_printf_char(buffer, buf_ptr, va_arg(vars, int)));
 		case 's':
 			return (_printf_string(buffer, buf_ptr, va_arg(vars, const char *)));
+		case 'r':
+			return (_printf_reverse(buffer, buf_ptr, va_arg(vars, const char *)));
 		case 'i':
 			return (_printf_int(buffer, buf_ptr, va_arg(vars, int)));
 		case 'd':
