@@ -4,14 +4,19 @@
  * _printf_unsigned_int - handles %u specifier
  * @buffer: buffer to check
  * @buffer_ptr: pointer to keep track of buffer position
- * @u: unsigned int to print
+ * @vars: next var
+ * @type: long/short/normal
  * Return: length of int
  */
-int _printf_unsigned_int(char *buffer, char *buffer_ptr, unsigned int u)
+int _printf_unsigned_int(char *buffer, char *buffer_ptr, va_list vars, int type
+)
 {
-	unsigned int buf = u;
+	unsigned long int u = va_arg(vars, unsigned long int), buf = u;
 	int len = 0, i;
 	char *str;
+
+	u = _swap_types_unsigned_int(u, type);
+	buf = _swap_types_unsigned_int(buf, type);
 
 	flush_buffer(buffer, buffer_ptr);
 	while (buf)
@@ -45,14 +50,17 @@ int _printf_unsigned_int(char *buffer, char *buffer_ptr, unsigned int u)
  * _printf_octal - handles %o specifier
  * @buffer: buffer to check
  * @buffer_ptr: pointer to keep track of buffer position
- * @o: unsigned to octal then print
+ * @vars: next var
+ * @type: long/short/normal
  * Return: size of octal
  */
-int _printf_octal(char *buffer, char *buffer_ptr, unsigned int o)
+int _printf_octal(char *buffer, char *buffer_ptr, va_list vars, int type)
 {
-	unsigned int octal[15];
+	unsigned long int o = va_arg(vars, unsigned long int), octal[15];
 	int i = 0, j, len;
 	char *str;
+
+	o = _swap_types_unsigned_int(o, type);
 
 	flush_buffer(buffer, buffer_ptr);
 	while (o != 0)
@@ -91,14 +99,19 @@ int _printf_octal(char *buffer, char *buffer_ptr, unsigned int o)
  * _printf_hexa_cap - handles %X specifier
  * @buffer: buffer to check
  * @buffer_ptr: pointer to keep track of buffer position
- * @X: unsigned to hexa cap
+ * @vars: next var
+ * @type: long/short/normal
  * Return: size of hexa
  */
-int _printf_hexa_cap(char *buffer, char *buffer_ptr, unsigned int X)
+int _printf_hexa_cap(char *buffer, char *buffer_ptr, va_list vars, int type)
 {
+	unsigned long int X = va_arg(vars, unsigned long int), buf, count = X;
 	int i = 0, j, len = 0;
-	unsigned int buf, count = X;
 	char *str;
+
+	X = _swap_types_unsigned_int(X, type);
+	buf = _swap_types_unsigned_int(buf, type);
+	count = _swap_types_unsigned_int(count, type);
 
 	flush_buffer(buffer, buffer_ptr);
 	while (count != 0)
@@ -135,17 +148,22 @@ int _printf_hexa_cap(char *buffer, char *buffer_ptr, unsigned int X)
  * _printf_hexa_small  - handles %x specifier
  * @buffer: buffer to check
  * @buffer_ptr: pointer to keep track of buffer position
- * @x: unsigned to hexa small
+ * @vars: next var
+ * @type: long/short/normal
  * Return: size of hexa
  *
  * Description: we added 32 to the previous code to
  * print small letters instead
  */
-int _printf_hexa_small(char *buffer, char *buffer_ptr, unsigned int x)
+int _printf_hexa_small(char *buffer, char *buffer_ptr, va_list vars, int type)
 {
+	unsigned long int x = va_arg(vars, unsigned long int), buf, count = x;
 	int i = 0, j, len = 0;
-	unsigned int buf, count = x;
 	char *str;
+
+	x = _swap_types_unsigned_int(x, type);
+	buf = _swap_types_unsigned_int(buf, type);
+	count = _swap_types_unsigned_int(count, type);
 
 	flush_buffer(buffer, buffer_ptr);
 	while (count != 0)

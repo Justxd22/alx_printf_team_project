@@ -65,47 +65,48 @@ int _printf_ukn(char *buffer, char *buf_ptr, char c)
  * @vars: vars
  * Return: Number of characters
  */
-int _printf_detect_format(char *buffer, char *buf_ptr,
+Result _printf_detect_format(char *buffer, char *buf_ptr,
 const char *format, va_list vars)
 {
+	Result r;
 
+	r.modifier = 0;
 	switch (*format)
 	{
 		case 'c':
-			return (_printf_char(buffer, buf_ptr, va_arg(vars, int)));
+			r.c = _printf_char(buffer, buf_ptr, va_arg(vars, int));
+			break;
 		case 's':
-			return (_printf_string(buffer, buf_ptr, va_arg(vars, const char *)));
+			r.c = _printf_string(buffer, buf_ptr, va_arg(vars, const char *));
+			break;
 		case 'r':
-			return (_printf_reverse(buffer, buf_ptr, va_arg(vars, const char *)));
+			r.c = _printf_reverse(buffer, buf_ptr, va_arg(vars, const char *));
+			break;
 		case 'R':
-			return (_printf_rot13(buffer, buf_ptr, va_arg(vars, const char *)));
+			r.c = _printf_rot13(buffer, buf_ptr, va_arg(vars, const char *));
+			break;
 		case 'i':
-			return (_printf_int(buffer, buf_ptr, va_arg(vars, int)));
 		case 'd':
-			return (_printf_int(buffer, buf_ptr, va_arg(vars, int)));
+			r.c = _printf_int(buffer, buf_ptr, vars, 0);
+			break;
 		case 'b':
-			return (_printf_unsigned_bin(buffer, buf_ptr, va_arg(vars, unsigned int)));
+			r.c = _printf_unsigned_bin(buffer, buf_ptr, va_arg(vars,
+unsigned int));
+			break;
 		case '%':
-			return (_printf_char(buffer, buf_ptr, '%'));
+			r.c = _printf_char(buffer, buf_ptr, '%');
+			break;
 		case 'u':
-			return (_printf_unsigned_int(buffer, buf_ptr, va_arg(vars, unsigned int)));
+			r.c = _printf_unsigned_int(buffer, buf_ptr, vars, 0);
+			break;
 		case 'o':
-			return (_printf_octal(buffer, buf_ptr, va_arg(vars, unsigned int)));
-		case 'x':
-			return (_printf_hexa_small(buffer, buf_ptr, va_arg(vars, unsigned int)));
-		case 'X':
-			return (_printf_hexa_cap(buffer, buf_ptr, va_arg(vars, unsigned int)));
-		case 'S':
-			return (_printf_string_special(buffer, buf_ptr,
-va_arg(vars, const char *)));
-		case 'p':
-			return (_printf_pointer(buffer, buf_ptr, va_arg(vars, void *)));
+			r.c = _printf_octal(buffer, buf_ptr, vars, 0);
+			break;
 		default:
-			return (_printf_ukn(buffer, buf_ptr, *format));
+			return (_printf_detect_format_pt2(buffer, buf_ptr, format, vars));
 	}
-
+	return (r);
 }
-
 
 
 /**
@@ -125,8 +126,9 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			temp = _printf_detect_format(buffer, buf_ptr, format, vars);
-			count += temp, buf_ptr += temp;
+			Result temp = _printf_detect_format(buffer, buf_ptr, format, vars);
+
+			count += temp.c, buf_ptr += temp.c, format += temp.modifier;
 		}
 		else
 			count += _printf_char(buffer, buf_ptr, *format), buf_ptr++;

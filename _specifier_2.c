@@ -25,7 +25,7 @@ int _printf_string_special(char *buffer, char *buffer_ptr, const char *S)
 			*buffer_ptr = 'x';
 			buffer_ptr++;
 			len += 2;
-			temp = _printf_hexa_cap(buffer, buffer_ptr, (unsigned int)S[i]);
+			temp = _printf_hexa_cap_normal(buffer, buffer_ptr, (unsigned int)S[i]);
 			len += temp, buffer_ptr += temp;
 		}
 		else

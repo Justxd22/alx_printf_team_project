@@ -4,13 +4,20 @@
  * _printf_int - integers
  * @buffer: buffer to check
  * @buf_ptr: pointer to keep track of buffer position
- * @d: int to print
+ * @vars: next var
+ * @type: long/short/normal
  * Return: Number of characters
+ *
+ *
+ * desc: you can't compare 0 with long/short diff types
  */
-int _printf_int(char *buffer, char *buf_ptr, int d)
+int _printf_int(char *buffer, char *buf_ptr, va_list vars, int type)
 {
-	int len = 0, i, temp = d, sign = 0;
+	long int d = va_arg(vars, long int), temp = d;
+	int len = 0, i, sign = 0;
 	char *str;
+
+	d = _swap_types(d, type), temp = _swap_types(temp, type);
 
 	flush_buffer(buffer, buf_ptr);
 	if (d == 0)
@@ -33,13 +40,10 @@ int _printf_int(char *buffer, char *buf_ptr, int d)
 	}
 	str = (char *)malloc((len) * sizeof(char));
 	if (str == NULL)
-		return (0);
+		return (_print_nill(buffer, buf_ptr));
 
 	for (i = 0; i < len; i++)
-	{
-		str[i] = d % 10 + '0';
-		d /= 10;
-	}
+		str[i] = d % 10 + '0', d /= 10;
 
 	for (i = len - 1; i >= 0; i--)
 	{
