@@ -40,7 +40,7 @@ int _printf_int(char *buffer, char *buf_ptr, va_list vars, int type)
 	}
 	str = (char *)malloc((len) * sizeof(char));
 	if (str == NULL)
-		return (_print_nill(buffer, buf_ptr));
+		return (0);
 
 	for (i = 0; i < len; i++)
 		str[i] = d % 10 + '0', d /= 10;

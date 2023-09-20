@@ -28,7 +28,7 @@ int _printf_string(char *buffer, char *buf_ptr, const char *str)
 
 	flush_buffer(buffer, buf_ptr);
 	if (str == NULL)
-		return (0);
+		return (_print_nill(buffer, buf_ptr));
 
 	len = strlen(str);
 	for (i = 0; i < len; i++)

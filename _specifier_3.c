@@ -136,7 +136,6 @@ int _print_nill(char *buffer, char *buffer_ptr)
 		flush_buffer(buffer, buffer_ptr);
 		*buffer_ptr = n[x];
 		buffer_ptr++;
-		printf("NIL %c %d", n[x], x);
 	}
 
 	return (5);
