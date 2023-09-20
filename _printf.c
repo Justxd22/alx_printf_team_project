@@ -116,7 +116,8 @@ unsigned int));
  */
 int _printf(const char *format, ...)
 {
-	int count = 0, temp = 0;
+	int count = 0;
+	Result temp;
 	char buffer[1024], *buf_ptr = buffer;
 	va_list vars;
 
@@ -126,7 +127,7 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			Result temp = _printf_detect_format(buffer, buf_ptr, format, vars);
+			temp = _printf_detect_format(buffer, buf_ptr, format, vars);
 
 			count += temp.c, buf_ptr += temp.c, format += temp.modifier;
 		}

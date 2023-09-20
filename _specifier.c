@@ -105,7 +105,7 @@ int _printf_octal(char *buffer, char *buffer_ptr, va_list vars, int type)
  */
 int _printf_hexa_cap(char *buffer, char *buffer_ptr, va_list vars, int type)
 {
-	unsigned long int X = va_arg(vars, unsigned long int), buf, count = X;
+	unsigned long int X = va_arg(vars, unsigned long int), buf = 0, count = X;
 	int i = 0, j, len = 0;
 	char *str;
 
@@ -157,7 +157,7 @@ int _printf_hexa_cap(char *buffer, char *buffer_ptr, va_list vars, int type)
  */
 int _printf_hexa_small(char *buffer, char *buffer_ptr, va_list vars, int type)
 {
-	unsigned long int x = va_arg(vars, unsigned long int), buf, count = x;
+	unsigned long int x = va_arg(vars, unsigned long int), buf = 0, count = x;
 	int i = 0, j, len = 0;
 	char *str;
 
