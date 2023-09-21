@@ -28,7 +28,7 @@ int _printf_string(char *buffer, char *buf_ptr, const char *str)
 
 	flush_buffer(buffer, buf_ptr);
 	if (str == NULL)
-		return (_print_nill(buffer, buf_ptr));
+		return (_print_null(buffer, buf_ptr));
 
 	len = strlen(str);
 	for (i = 0; i < len; i++)
@@ -122,19 +122,23 @@ int _printf(const char *format, ...)
 	va_list vars;
 
 	va_start(vars, format);
+	if (format == NULL)
+		return (0);
 	while (*format != '\0')
 	{
 		if (*format == '%')
 		{
 			format++;
 			temp = _printf_detect_format(buffer, buf_ptr, format, vars);
-
 			count += temp.c, buf_ptr += temp.c, format += temp.modifier;
 		}
 		else
+		{
 			count += _printf_char(buffer, buf_ptr, *format), buf_ptr++;
+		}
 		format++;
-		flush_buffer(buffer, buf_ptr);
+		flush_buffer(buffer, buf_ptr)
+;
 	}
 	va_end(vars);
 	(buf_ptr > buffer) ? write(1, buffer, buf_ptr - buffer) : 0;

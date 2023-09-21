@@ -23,6 +23,7 @@ struct Res
 typedef struct Res Result;
 
 int _print_nill(char *buffer, char *buffer_ptr);
+int _print_null(char *buffer, char *buffer_ptr);
 void flush_buffer(char *buffer, char *buffer_ptr);
 long int _swap_types(long int q, int type);
 unsigned long int _swap_types_unsigned_int(unsigned long int q, int type);

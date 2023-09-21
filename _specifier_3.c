@@ -140,3 +140,25 @@ int _print_nill(char *buffer, char *buffer_ptr)
 
 	return (5);
 }
+
+
+/**
+ * _print_null - print null for null entries
+ * @buffer: buffer to check
+ * @buffer_ptr: pointer to keep track of buffer position
+ * Return: Number of characters
+ */
+int _print_null(char *buffer, char *buffer_ptr)
+{
+	char *n = "(null)";
+	int x;
+
+	for (x = 0; n[x] != '\0'; x++)
+	{
+		flush_buffer(buffer, buffer_ptr);
+		*buffer_ptr = n[x];
+		buffer_ptr++;
+	}
+
+	return (6);
+}
