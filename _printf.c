@@ -133,12 +133,9 @@ int _printf(const char *format, ...)
 			count += temp.c, buf_ptr += temp.c, format += temp.modifier;
 		}
 		else
-		{
 			count += _printf_char(buffer, buf_ptr, *format), buf_ptr++;
-		}
 		format++;
-		flush_buffer(buffer, buf_ptr)
-;
+		flush_buffer(buffer, buf_ptr);
 	}
 	va_end(vars);
 	(buf_ptr > buffer) ? write(1, buffer, buf_ptr - buffer) : 0;
