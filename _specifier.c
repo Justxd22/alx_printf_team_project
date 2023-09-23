@@ -19,12 +19,14 @@ int _printf_unsigned_int(char *buffer, char *buffer_ptr, va_list vars, int type
 	buf = _swap_types_unsigned_int(buf, type);
 
 	flush_buffer(buffer, buffer_ptr);
-	while (buf)
+	if (u == 0)
 	{
-		buf /= 10;
-		len++;
+		*buffer_ptr = '0', buffer_ptr++;
+		return (1);
 	}
 
+	while (buf)
+		buf /= 10, len++;
 	str = (char *)malloc((len + 1) * sizeof(char));
 	if (str == NULL)
 		return (0);
@@ -63,17 +65,15 @@ int _printf_octal(char *buffer, char *buffer_ptr, va_list vars, int type)
 	o = _swap_types_unsigned_int(o, type);
 
 	flush_buffer(buffer, buffer_ptr);
-	while (o != 0)
+	if (o == 0)
 	{
-		octal[i] = (o % 8);
-		o = o / 8;
-		i++;
+		*buffer_ptr = '0', buffer_ptr++;
+		return (1);
 	}
-
+	while (o != 0)
+		octal[i] = (o % 8), o = o / 8, i++;
 	len = i;
-
 	str = (char *)malloc((len + 1) * sizeof(char));
-
 	if (str == NULL)
 		return (0);
 
@@ -114,12 +114,13 @@ int _printf_hexa_cap(char *buffer, char *buffer_ptr, va_list vars, int type)
 	count = _swap_types_unsigned_int(count, type);
 
 	flush_buffer(buffer, buffer_ptr);
-	while (count != 0)
+	if (X == 0)
 	{
-		count /= 16;
-		len++;
+		*buffer_ptr = '0', buffer_ptr++;
+		return (1);
 	}
-
+	while (count != 0)
+		count /= 16, len++;
 	str = (char *)malloc((len + 1) * sizeof(char));
 	while (X != 0)
 	{
@@ -166,11 +167,13 @@ int _printf_hexa_small(char *buffer, char *buffer_ptr, va_list vars, int type)
 	count = _swap_types_unsigned_int(count, type);
 
 	flush_buffer(buffer, buffer_ptr);
-	while (count != 0)
+	if (x == 0)
 	{
-		count /= 16;
-		len++;
+		*buffer_ptr = '0', buffer_ptr++;
+		return (1);
 	}
+	while (count != 0)
+		count /= 16, len++;
 
 	str = (char *)malloc((len + 1) * sizeof(char));
 	while (x != 0)
